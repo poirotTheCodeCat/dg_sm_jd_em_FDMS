@@ -6,5 +6,6 @@ namespace FDMS
 {
     class Packet
     {
+
     }
 }
