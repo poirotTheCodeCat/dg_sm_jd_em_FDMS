@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 16.0.29509.3
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDMS_Ground_Terminal_System", "FDMS_Ground_Terminal_System.csproj", "{AE28DCD7-5496-4A5F-8F9D-A5100F13B153}"
+	ProjectSection(ProjectDependencies) = postProject
+		{3711DD62-11DB-452F-B729-95739FDD7906} = {3711DD62-11DB-452F-B729-95739FDD7906}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FDMS", "..\FDMS\FDMS.csproj", "{3711DD62-11DB-452F-B729-95739FDD7906}"
 EndProject

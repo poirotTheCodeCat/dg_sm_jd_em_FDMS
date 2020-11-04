@@ -1,4 +1,5 @@
 ﻿@page "/"
+@using FDMS
 <div class="page">
     <div class="switchcontainer ">
         <label class="switch">
@@ -8,9 +9,10 @@
     </div>
     <div class="datagrid">
         <h2>A DataGrid will go here </h2>
+
     </div>
 </div>
 
 @code {
-
+    IEnumerable<Telemetry> telemetryData;
 }
