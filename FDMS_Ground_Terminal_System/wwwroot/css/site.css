@@ -149,3 +149,18 @@ app {
     }
 }
 */
+
+.telnav{
+    padding-top: 75px;
+    padding-bottom: 50px;
+}
+
+.navlink{
+    padding: 20px;
+    font-size:20px;
+    color: black;
+}
+
+.navlink:active{
+    text-decoration: underline;
+}
