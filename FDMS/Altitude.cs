@@ -6,5 +6,8 @@ namespace FDMS
 {
     class Altitude
     {
+        private float altitude { get; set; }
+        private float pitch { get; set; }
+        private float bank { get; set; }
     }
 }

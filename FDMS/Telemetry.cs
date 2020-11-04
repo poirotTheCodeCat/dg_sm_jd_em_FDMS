@@ -4,9 +4,9 @@ namespace FDMS
 {
     public class Telemetry
     {
-        String tailNum { get; set; }
-        GForce GforceParameters { get; set; }
-        Altitude AltitudeParameters { get; set; }
-        DateTime timeStamp { get; set; }
+        private String tailNum { get; set; }
+        private GForce GforceParameters { get; set; }
+        private Altitude AltitudeParameters { get; set; }
+        private DateTime timeStamp { get; set; }
     }
 }
