@@ -1,5 +1,6 @@
 ﻿@page "/"
 @using FDMS
+@implements IDisposable
 <div class="page">
     <div class="switchcontainer ">
         <label class="switch">
@@ -9,10 +10,43 @@
     </div>
     <div class="datagrid">
         <h2>A DataGrid will go here </h2>
+        @if(telemetryData == null)
+        {
+            <h5>Waiting for incoming messages ... </h5>
+        }
+        else
+        {
+            <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowPaging="true" PageSize="10" 
+                        AllowSorting="true" Data="@telemetryData" TItem="Telemetry" ColumnWidth="100px">
+                
+                <Columns>
+                    <RadzenGridColumn TItem="Telemetry" Property="tailNum" Title="Tail Number"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.accel_x" Title="Accel-X"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.accel_y" Title="Accel-Y"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.accel_z" Title="Accel-Z"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.weight" Title="Weight"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.altitude" Title="Altitude"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.pitch" Title="Pitch"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.bank" Title="Bank"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="timeStamp" Title="Time Stamp"></RadzenGridColumn>
+                </Columns>      
+
+            </RadzenGrid>
+        }
 
     </div>
 </div>
 
 @code {
     IEnumerable<Telemetry> telemetryData;
+
+    protected override void OnInitialized()
+    {
+
+    }
+
+    public void Dispose()
+    {
+
+    }
 }

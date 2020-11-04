@@ -157,7 +157,7 @@ app {
 
 .navlink{
     padding: 20px;
-    font-size:40px;
+    font-size:30px;
     color: black;
 }
 
@@ -236,6 +236,7 @@ input:checked + .slider:before {
     background: #f2f2f2;
     margin:auto;
     padding:20px;
+    height: 70vh;
 }
 
 .switchcontainer{

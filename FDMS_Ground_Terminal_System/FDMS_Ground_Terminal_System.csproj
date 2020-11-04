@@ -8,4 +8,8 @@
     <PackageReference Include="Radzen.Blazor" Version="2.15.21" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FDMS\FDMS.csproj" />
+  </ItemGroup>
+
 </Project>
