@@ -4,9 +4,41 @@ namespace FDMS
 {
     public class Telemetry
     {
-        public String tailNum { get; set; }
-        public GForce GforceParameters { get; set; }
-        public Altitude AltitudeParameters { get; set; }
-        public DateTime timeStamp { get; set; }
+        private String tailNum;
+        private GForce gForceParameters;
+        private Altitude altitudeParameters;
+        private DateTime timeStamp;
+
+        public Telemetry()
+        {
+
+        }
+        public Telemetry(String tailNum, GForce gForce, Altitude altitude, DateTime timeStamp)
+        {
+            TailNum = tailNum;
+            GForceParameters = gForce;
+            AltitudeParameters = altitude;
+            TimeStamp = timeStamp;
+        }
+        public string TailNum
+        {
+            get { return tailNum; }
+            set { tailNum = value; }
+        }
+        public GForce GForceParameters
+        {
+            get { return gForceParameters; }
+            set { gForceParameters = value; }
+        }
+        public Altitude AltitudeParameters
+        {
+            get { return altitudeParameters; }
+            set { altitudeParameters = value; }
+        }
+        public DateTime TimeStamp
+        {
+            get { return timeStamp; }
+            set { timeStamp = value; }
+        }
     }
 }

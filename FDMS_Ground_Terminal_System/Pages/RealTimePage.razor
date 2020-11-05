@@ -20,15 +20,15 @@
                         AllowSorting="true" Data="@telemetryData" TItem="Telemetry" ColumnWidth="100px">
                 
                 <Columns>
-                    <RadzenGridColumn TItem="Telemetry" Property="tailNum" Title="Tail Number"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GforceParameters.accel_x" Title="Accel-X"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GforceParameters.accel_y" Title="Accel-Y"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GforceParameters.accel_z" Title="Accel-Z"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GforceParameters.weight" Title="Weight"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.altitude" Title="Altitude"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.pitch" Title="Pitch"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.bank" Title="Bank"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="timeStamp" Title="Time Stamp"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="TailNum" Title="Tail Number"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_x" Title="Accel-X"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_y" Title="Accel-Y"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_z" Title="Accel-Z"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Weight" Title="Weight"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.AltitudeProperty" Title="Altitude"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Pitch" Title="Pitch"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Bank" Title="Bank"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="TimeStamp" Title="Time Stamp"></RadzenGridColumn>
                 </Columns>      
 
             </RadzenGrid>
@@ -43,13 +43,18 @@
         protected override void OnInitialized()
         {
             // create test data to view the datagrid
+            /*
+             * There are constructors in each of the objects that will assign values based on parameters. 
+             * This should be changed so the curly brackets are removed and variables hold values instead.
+             * new Telemetry(tailNum, GForce(x, y, z, weight), Altitude(...)
+             */
             List<Telemetry> tel = new List<Telemetry>()
         {
-            new Telemetry() {tailNum="123", GforceParameters=new GForce(){accel_x=.01, accel_y=.01, accel_z=.01, weight=2.23}, AltitudeParameters=new Altitude(){altitude=100.1, pitch=0.21, bank=.0023}, timeStamp=DateTime.Today},
-            new Telemetry() {tailNum="123", GforceParameters=new GForce(){accel_x=.01, accel_y=.01, accel_z=.01, weight=2.23}, AltitudeParameters=new Altitude(){altitude=100.1, pitch=0.21, bank=.0023}, timeStamp=DateTime.Today},
-            new Telemetry() {tailNum="123", GforceParameters=new GForce(){accel_x=.01, accel_y=.01, accel_z=.01, weight=2.23}, AltitudeParameters=new Altitude(){altitude=100.1, pitch=0.21, bank=.0023}, timeStamp=DateTime.Today},
-            new Telemetry() {tailNum="123", GforceParameters=new GForce(){accel_x=.01, accel_y=.01, accel_z=.01, weight=2.23}, AltitudeParameters=new Altitude(){altitude=100.1, pitch=0.21, bank=.0023}, timeStamp=DateTime.Today},
-            new Telemetry() {tailNum="123", GforceParameters=new GForce(){accel_x=.01, accel_y=.01, accel_z=.01, weight=2.23}, AltitudeParameters=new Altitude(){altitude=100.1, pitch=0.21, bank=.0023}, timeStamp=DateTime.Today}
+            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
+            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
+            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
+            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
+            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today}
         };
         telemetryData = tel;
     }
