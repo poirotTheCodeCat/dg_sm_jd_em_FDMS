@@ -6,9 +6,9 @@ namespace FDMS
 {
     public class GForce
     {
-        private float accel_x { get; set; }
-        private float accel_y { get; set; }
-        private float accel_z { get; set; }
-        private float weight { get; set; }
+        public double accel_x { get; set; }
+        public double accel_y { get; set; }
+        public double accel_z { get; set; }
+        public double weight { get; set; }
     }
 }

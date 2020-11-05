@@ -6,8 +6,8 @@ namespace FDMS
 {
     public class Altitude
     {
-        private float altitude { get; set; }
-        private float pitch { get; set; }
-        private float bank { get; set; }
+        public double altitude { get; set; }
+        public double pitch { get; set; }
+        public double bank { get; set; }
     }
 }
