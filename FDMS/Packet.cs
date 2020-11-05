@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FDMS
 {
-    class Packet
+    public class Packet
     {
 
     }

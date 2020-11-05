@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FDMS
 {
-    class GForce
+    public class GForce
     {
         private float accel_x { get; set; }
         private float accel_y { get; set; }

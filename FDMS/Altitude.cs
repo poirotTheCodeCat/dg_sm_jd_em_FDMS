@@ -4,7 +4,7 @@ using System.Text;
 
 namespace FDMS
 {
-    class Altitude
+    public class Altitude
     {
         private float altitude { get; set; }
         private float pitch { get; set; }
