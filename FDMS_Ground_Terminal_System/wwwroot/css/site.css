@@ -172,7 +172,6 @@ app {
     display: inline-block;
     width: 60px;
     height: 34px;
-    float:right;
 }
 
     /* Hide default HTML checkbox */
@@ -240,5 +239,9 @@ input:checked + .slider:before {
 }
 
 .switchcontainer{
-    
+    padding-bottom: 30px;
+}
+
+.switchcontainer h5{
+    padding-left:20px;
 }

@@ -2,13 +2,14 @@
 @using FDMS
 @implements IDisposable
 <div class="page">
-    <div class="switchcontainer ">
+    <div class="row switchcontainer">
         <label class="switch">
             <input type="checkbox">
             <span class="slider"></span>
         </label>
+        <h5>Real Time Data: </h5>
     </div>
-    <div class="datagrid">
+    <div class="datagrid container-fluid">
         
         @if(telemetryData == null)
         {
@@ -39,6 +40,7 @@
 
 @code {
     IEnumerable<Telemetry> telemetryData;
+    bool isCollecting;
 
     protected override void OnInitialized()
     {
