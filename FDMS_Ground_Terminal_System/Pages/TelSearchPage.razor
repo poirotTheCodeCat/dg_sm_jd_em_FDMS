@@ -3,24 +3,39 @@
 
     <div class="page">
         <h3>Telemetry Search Page</h3>
-        <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowPaging="true" PageSize="10"
-                    AllowSorting="true" Data="@telemetryData" TItem="Telemetry" ColumnWidth="100px">
+        <div class="search">
+            <label>
+                SEARCH: 
+                <input type="text" @bind-value="searchTerm" class="form-control"/>
+            </label>
+            <button type="button" @onclick="searchClick" class="btn btn-primary">Search</button>
+        </div>
+        <div>
+            <RadzenGrid AllowFiltering="true" FilterCaseSensitivity="FilterCaseSensitivity.CaseInsensitive" AllowPaging="true" PageSize="10"
+                        AllowSorting="true" Data="@telemetryData" TItem="Telemetry" ColumnWidth="100px">
 
-            <Columns>
-                <RadzenGridColumn TItem="Telemetry" Property="TailNum" Title="Tail Number"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_x" Title="Accel-X"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_y" Title="Accel-Y"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_z" Title="Accel-Z"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Weight" Title="Weight"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.AltitudeProperty" Title="Altitude"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Pitch" Title="Pitch"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Bank" Title="Bank"></RadzenGridColumn>
-                <RadzenGridColumn TItem="Telemetry" Property="TimeStamp" Title="Time Stamp"></RadzenGridColumn>
-            </Columns>
+                <Columns>
+                    <RadzenGridColumn TItem="Telemetry" Property="TailNum" Title="Tail Number"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_x" Title="Accel-X"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_y" Title="Accel-Y"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_z" Title="Accel-Z"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Weight" Title="Weight"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.AltitudeProperty" Title="Altitude"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Pitch" Title="Pitch"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Bank" Title="Bank"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="TimeStamp" Title="Time Stamp"></RadzenGridColumn>
+                </Columns>
 
-        </RadzenGrid>
+            </RadzenGrid>
+        </div>
     </div>
 
 @code {
     IEnumerable<Telemetry> telemetryData;
+    String searchTerm;
+
+    private void searchClick()
+    {
+
+    }
 }

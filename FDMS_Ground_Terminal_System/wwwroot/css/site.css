@@ -245,3 +245,11 @@ input:checked + .slider:before {
 .switchcontainer h5{
     padding-left:20px;
 }
+
+.search{
+    padding: 30px;
+}
+
+search.button{
+    padding-left: 10px;
+}
