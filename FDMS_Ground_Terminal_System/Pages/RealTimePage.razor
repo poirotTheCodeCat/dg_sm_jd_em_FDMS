@@ -38,27 +38,30 @@
 </div>
 
 @code {
-        IEnumerable<Telemetry> telemetryData;
+    IEnumerable<Telemetry> telemetryData;
 
-        protected override void OnInitialized()
-        {
-            // create test data to view the datagrid
-            /*
-             * There are constructors in each of the objects that will assign values based on parameters. 
-             * This should be changed so the curly brackets are removed and variables hold values instead.
-             * new Telemetry(tailNum, GForce(x, y, z, weight), Altitude(...)
-             */
-            List<Telemetry> tel = new List<Telemetry>()
-        {
-            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
-            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
-            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
-            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today},
-            new Telemetry() {TailNum="123", GForceParameters=new GForce(){Accel_x=.01, Accel_y=.01, Accel_z=.01, Weight=2.23}, AltitudeParameters=new Altitude(){AltitudeProperty=100.1, Pitch=0.21, Bank=.0023}, TimeStamp=DateTime.Today}
+    protected override void OnInitialized()
+    {
+        // create test data to view the datagrid
+        /*
+         * There are constructors in each of the objects that will assign values based on parameters. 
+         * This should be changed so the curly brackets are removed and variables hold values instead.
+         * new Telemetry(tailNum, GForce(x, y, z, weight), Altitude(...)
+         */
+
+        List<Telemetry> telTest = new List<Telemetry>() { 
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
+            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now)
         };
-        telemetryData = tel;
+
+        telemetryData = telTest;
     }
 
+    // Used to stop listening and close connection
     public void Dispose()
     {
 
