@@ -17,6 +17,8 @@ namespace FDMS
         public static Telemetry process(Packet packet)
         {
             // check the checksum
+            Telemetry tel = packet.TelemetryData;
+
 
             return null;
         }
