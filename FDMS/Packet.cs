@@ -44,9 +44,17 @@ namespace FDMS
         {
             double result = 0;
 
-            result = (telemetryData.Altitude + telemetryData.Pitch + telemetryData.Bank) / 3;
+            result = (int) Math.Floor((telemetryData.Altitude + telemetryData.Pitch + telemetryData.Bank) / 3);
 
             return (int)result;
+        }
+
+        public static int calculateCheckSum(Telemetry tel)
+        {
+            double checksum = (tel.Altitude + tel.Pitch + tel.Bank) / 3;
+            int checkReturn = (int)Math.Floor(checksum);
+
+            return checkReturn;
         }
     }
 }
