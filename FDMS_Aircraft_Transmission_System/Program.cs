@@ -7,25 +7,26 @@ using System.Text.RegularExpressions;
 
 namespace FDMS_Aircraft_Transmission_System
 {
-    class Program
+        class Program
     {
         static void Main(string[] args)
         {
             string serverName = "127.0.0.1";
             int port = 13000;
+            int numOfPackets = 1;
 
             try
             {
                 TcpClient client = new TcpClient();
-                //client.Connect(serverName, port);
-                NetworkStream stream = null;
+                client.Connect(serverName, port);
+                NetworkStream stream = client.GetStream();
 
-                sendPackets("C:\\tmp\\C-FGAX.txt", client, stream);
-                //sendPackets("C:\\tmp\\C-GEFC.txt", client, stream);
-                //sendPackets("C:\\tmp\\C-QWWT.txt", client, stream);
+                numOfPackets = sendPackets("C:\\tmp\\C-FGAX.txt", client, stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-GEFC.txt", client, stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-QWWT.txt", client, stream, numOfPackets);
 
-                //client.Close();
-                //stream.Close();
+                client.Close();
+                stream.Close();
             }
             catch (Exception ex)
             {
@@ -41,7 +42,7 @@ namespace FDMS_Aircraft_Transmission_System
         //              TcpClient client:
         //              NetworkStream stream:
         // Returns:     N/A
-        static void sendPackets(string filename, TcpClient client, NetworkStream stream)
+        static int sendPackets(string filename, TcpClient client, NetworkStream stream, int packetNum)
         {
             // array of the aircraft data parsed into each attribute
             string[] aircraftData = null;
@@ -65,23 +66,30 @@ namespace FDMS_Aircraft_Transmission_System
                 if (!line.Equals(lines.Last()))
                 {
                     aircraftData = line.Split(',');
-                    
-                    //GForce gForceData = new GForce(Double.Parse(aircraftData[1]), Double.Parse(aircraftData[2]), Double.Parse(aircraftData[3]), Double.Parse(aircraftData[4]));
-                    //Altitude altitudeData = new Altitude(Double.Parse(aircraftData[5]), Double.Parse(aircraftData[6]), Double.Parse(aircraftData[7]));
+
                     Telemetry tData = new Telemetry(aircraftTail, Double.Parse(aircraftData[1]), Double.Parse(aircraftData[2]), Double.Parse(aircraftData[3]), Double.Parse(aircraftData[4]),
                         Double.Parse(aircraftData[5]), Double.Parse(aircraftData[6]), Double.Parse(aircraftData[7]), Convert.ToDateTime(aircraftData[0].Trim().Replace('_', '-')));
+                    Packet packet = new Packet(tData, packetNum);
+
+                    string JSONPacket = JsonConvert.SerializeObject(packet);
 
                     // loop to constantly send the packet until conformation that the sent packet has been successfully recieved
                     while (!successfulPacket)
-                    { 
-                        // Create JSON string of telemetry data/packet
-                        // send JSON string
+                    {
+                        // sends the data to the connected server
+                        byte[] data = System.Text.Encoding.ASCII.GetBytes(JSONPacket);
+                        stream.Write(data, 0, data.Length);
+
                         // wait for response
 
                         successfulPacket = true;
                     }
+
+                    packetNum++;
                 }
             }
+
+            return packetNum;
         }
     }
 }
