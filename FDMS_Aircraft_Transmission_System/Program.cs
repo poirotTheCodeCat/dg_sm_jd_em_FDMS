@@ -44,6 +44,8 @@ namespace FDMS_Aircraft_Transmission_System
         // Returns:     N/A
         static int sendPackets(string filename, TcpClient client, NetworkStream stream, int packetNum)
         {
+            byte[] bytes = new Byte[1024];
+            string recievedPacketString = "";
             // array of the aircraft data parsed into each attribute
             string[] aircraftData = null;
             // bool to keep track if the packet was successfully sent
@@ -80,9 +82,19 @@ namespace FDMS_Aircraft_Transmission_System
                         byte[] data = System.Text.Encoding.ASCII.GetBytes(JSONPacket);
                         stream.Write(data, 0, data.Length);
 
-                        // wait for response
+                        // waits for the response packet
+                        stream.Read(bytes, 0, bytes.Length);
 
-                        successfulPacket = true;
+                        // Translate data bytes to a ASCII string, and converts it back to a packet from the JSON string
+                        recievedPacketString = System.Text.Encoding.ASCII.GetString(bytes);
+                        Packet recievedPacket = JsonConvert.DeserializeObject<Packet>(recievedPacketString);
+
+                        // if the packet sequence and checksum is identical between the sent and recieved packets, successfulPacket is set to true
+                        // to move onto sending the next packet
+                        if (recievedPacket.PacketSequence == packet.PacketSequence && recievedPacket.CheckSum == packet.CheckSum)
+                        {
+                            successfulPacket = true;
+                        }
                     }
 
                     packetNum++;
