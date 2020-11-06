@@ -21,9 +21,9 @@ namespace FDMS_Aircraft_Transmission_System
                 client.Connect(serverName, port);
                 NetworkStream stream = client.GetStream();
 
-                numOfPackets = sendPackets("C:\\tmp\\C-FGAX.txt", client, stream, numOfPackets);
-                numOfPackets = sendPackets("C:\\tmp\\C-GEFC.txt", client, stream, numOfPackets);
-                numOfPackets = sendPackets("C:\\tmp\\C-QWWT.txt", client, stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-FGAX.txt", stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-GEFC.txt", stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-QWWT.txt", stream, numOfPackets);
 
                 client.Close();
                 stream.Close();
@@ -37,12 +37,11 @@ namespace FDMS_Aircraft_Transmission_System
 
 
         // Method:      sendPackets()
-        // Description: 
+        // Description: goes through each line in the file and sends the aircraft data to the connected ground terminal
         // Parameters:  string filename: the filename of the file that will have its contents read and sent to via packets
-        //              TcpClient client:
-        //              NetworkStream stream:
-        // Returns:     N/A
-        static int sendPackets(string filename, TcpClient client, NetworkStream stream, int packetNum)
+        //              NetworkStream stream: the stream to the server
+        // Returns:     int: the packet sequence number of the next packet to be sent
+        static int sendPackets(string filename, NetworkStream stream, int packetNum)
         {
             byte[] bytes = new Byte[1024];
             string recievedPacketString = "";
