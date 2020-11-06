@@ -65,10 +65,11 @@ namespace FDMS_Aircraft_Transmission_System
                 if (!line.Equals(lines.Last()))
                 {
                     aircraftData = line.Split(',');
-
-                    GForce gForceData = new GForce(Double.Parse(aircraftData[1]), Double.Parse(aircraftData[2]), Double.Parse(aircraftData[3]), Double.Parse(aircraftData[4]));
-                    Altitude altitudeData = new Altitude(Double.Parse(aircraftData[5]), Double.Parse(aircraftData[6]), Double.Parse(aircraftData[7]));
-                    Telemetry tData = new Telemetry(aircraftTail, gForceData, altitudeData, Convert.ToDateTime(aircraftData[0].Trim().Replace('_', '-')));
+                    
+                    //GForce gForceData = new GForce(Double.Parse(aircraftData[1]), Double.Parse(aircraftData[2]), Double.Parse(aircraftData[3]), Double.Parse(aircraftData[4]));
+                    //Altitude altitudeData = new Altitude(Double.Parse(aircraftData[5]), Double.Parse(aircraftData[6]), Double.Parse(aircraftData[7]));
+                    Telemetry tData = new Telemetry(aircraftTail, Double.Parse(aircraftData[1]), Double.Parse(aircraftData[2]), Double.Parse(aircraftData[3]), Double.Parse(aircraftData[4]),
+                        Double.Parse(aircraftData[5]), Double.Parse(aircraftData[6]), Double.Parse(aircraftData[7]), Convert.ToDateTime(aircraftData[0].Trim().Replace('_', '-')));
 
                     // loop to constantly send the packet until conformation that the sent packet has been successfully recieved
                     while (!successfulPacket)
