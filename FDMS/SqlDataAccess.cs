@@ -28,7 +28,6 @@ namespace FDMS
         public async Task<List<T>> LoadData<T, U>(string sql, U parameters)
         {
             string connectionString = _config.GetConnectionString(ConnectionString);
-            //string connectionString = "Data Source = SASHAMALESEFDB0; Initial Catalog = GroundTerminal; Integrated Security = True";
 
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
@@ -38,6 +37,7 @@ namespace FDMS
             }
         }
 
+
         public async Task SaveData<T>(string sql, T parameters)
         {
             string connectionString = _config.GetConnectionString(ConnectionString);
@@ -45,7 +45,6 @@ namespace FDMS
             using (IDbConnection connection = new SqlConnection(connectionString))
             {
                 await connection.ExecuteAsync(sql, parameters);
-
             }
         }
     }
