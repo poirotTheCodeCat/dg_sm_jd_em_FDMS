@@ -51,7 +51,9 @@
         if(first == false)
         {
             first = true;
-            FDMS.TelProcess.sendPackets(_db);
+            FDMS.TelProcess.sendPackets(".\\C-FGAX.txt", _db);
+            FDMS.TelProcess.sendPackets(".\\C-GEFC.txt", _db);
+            FDMS.TelProcess.sendPackets(".\\C-QWWT.txt", _db);
         }
         // create test data to view the datagrid
         /*
@@ -60,34 +62,10 @@
          * new Telemetry(tailNum, GForce(x, y, z, weight), Altitude(...)
          */
 
-        telemetry = await _db.GetTelemetry();
-        /*
-        List<Telemetry> telTest = new List<Telemetry>() { 
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
-            new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now)
-        };
-        */
-        Telemetry t = new Telemetry("NEW", 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, DateTime.Now);
-        await _db.InsertTelemetry(t);
-        telemetry = await _db.GetTelemetry();
-        telemetry.Add(t);
-        //telemetryData = telTest;
-        telemetryData = telemetry;
-
-
+        telemetryData = await _db.GetTelemetry();
+       
     }
 
-    private async Task InsertTelemetry()
-    {
-        Telemetry t = new Telemetry("NEW", 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, DateTime.Now);
-        await _db.InsertTelemetry(t);
-        telemetry = await _db.GetTelemetry();
-        telemetry.Add(t);
-    }
 
     // Used to stop listening and close connection
     public void Dispose()
