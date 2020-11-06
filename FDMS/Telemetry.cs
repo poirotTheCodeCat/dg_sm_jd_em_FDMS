@@ -4,6 +4,20 @@ using System.Threading.Tasks;
 
 namespace FDMS
 {
+    /*
+     * Class: Telemetry
+     * Description: Holds telemetry data about the GForce Parameters and Altitude Parameters
+     * Data Members: 
+     *  private String tailNum;
+     *  private double accel_x;
+     *  private double accel_y;
+     *  private double accel_z;
+     *  private double weight;
+     *  private double altitude;
+     *  private double pitch;
+     *  private double bank;
+     *  private DateTime timeStamp;
+     */
     public class Telemetry : ITelemetry
     {
 

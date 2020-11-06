@@ -10,6 +10,10 @@ using System.Linq;
 
 namespace FDMS
 {
+    /*
+     * Class: SqlDataAccess
+     * Description: This class is responsible for interacting with a database to store and recieve Telemetry data
+     */
     public class SqlDataAccess : ISqlDataAccess
     {
         private readonly IConfiguration _config;
