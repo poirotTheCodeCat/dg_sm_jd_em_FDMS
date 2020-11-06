@@ -1,6 +1,7 @@
 ﻿@page "/"
 @using FDMS
 @implements IDisposable
+@inject ITelemetry _db
 <div class="page">
     <div class="row switchcontainer">
         <label class="switch">
@@ -22,13 +23,13 @@
                 
                 <Columns>
                     <RadzenGridColumn TItem="Telemetry" Property="TailNum" Title="Tail Number"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_x" Title="Accel-X"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_y" Title="Accel-Y"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Accel_z" Title="Accel-Z"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="GForceParameters.Weight" Title="Weight"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.AltitudeProperty" Title="Altitude"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Pitch" Title="Pitch"></RadzenGridColumn>
-                    <RadzenGridColumn TItem="Telemetry" Property="AltitudeParameters.Bank" Title="Bank"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Accel_x" Title="Accel-X"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Accel_y" Title="Accel-Y"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Accel_z" Title="Accel-Z"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Weight" Title="Weight"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Altitude" Title="Altitude"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Pitch" Title="Pitch"></RadzenGridColumn>
+                    <RadzenGridColumn TItem="Telemetry" Property="Bank" Title="Bank"></RadzenGridColumn>
                     <RadzenGridColumn TItem="Telemetry" Property="TimeStamp" Title="Time Stamp"></RadzenGridColumn>
                 </Columns>      
 
@@ -41,8 +42,10 @@
 @code {
     IEnumerable<Telemetry> telemetryData;
     bool isCollecting;
+    private List<Telemetry> telemetry;
+    Telemetry t;
 
-    protected override void OnInitialized()
+    protected override async Task OnInitializedAsync()
     {
         // create test data to view the datagrid
         /*
@@ -51,6 +54,8 @@
          * new Telemetry(tailNum, GForce(x, y, z, weight), Altitude(...)
          */
 
+        telemetry = await _db.GetTelemetry();
+        /*
         List<Telemetry> telTest = new List<Telemetry>() { 
             new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
             new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
@@ -59,8 +64,23 @@
             new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now),
             new Telemetry("123", new GForce(0.01, 0.01, 0.01, 100.123), new Altitude(123.21, 0.23, 0.01), DateTime.Now)
         };
+        */
+        Telemetry t = new Telemetry("NEW", 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, DateTime.Now);
+        await _db.InsertTelemetry(t);
+        telemetry = await _db.GetTelemetry();
+        telemetry.Add(t);
+        //telemetryData = telTest;
+        telemetryData = telemetry;
+        
 
-        telemetryData = telTest;
+    }
+
+    private async Task InsertTelemetry()
+    {
+        Telemetry t = new Telemetry("NEW", 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, 4.0, DateTime.Now);
+        await _db.InsertTelemetry(t);
+        telemetry = await _db.GetTelemetry();
+        telemetry.Add(t);
     }
 
     // Used to stop listening and close connection
