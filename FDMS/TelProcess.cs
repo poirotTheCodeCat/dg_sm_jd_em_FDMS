@@ -16,11 +16,20 @@ namespace FDMS
 
         public static Telemetry process(Packet packet)
         {
-            // check the checksum
+            // Load the telemetry data from the packet 
             Telemetry tel = packet.TelemetryData;
 
+            // check the checksum
+            if(packet.CheckSum != Packet.calculateCheckSum(tel))    // if checksum fails
+            {
+                return null;
+            }
+            else
+            {
+                // call method to add to the database 
 
-            return null;
+                return tel;
+            }
         }
     }
 }
