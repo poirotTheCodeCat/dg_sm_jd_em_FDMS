@@ -7,6 +7,12 @@ using System.Net.Sockets;
 
 namespace FDMS
 {
+    /*
+     * Class: TelServer
+     * Description: This class is used to listen for incoming messages from an aircraft
+     * Upon recieving aircraft telemetry information over TCP/IP - this class calls methods from
+     * external classes to process the recieved data and store it in the database
+     */
     class TelServer
     {
         private Thread listenerThread;
@@ -18,6 +24,11 @@ namespace FDMS
 
         }
 
+        /*
+         * Function: StartListening()
+         * Description: begins a thread running in the background which listens for incoming packets 
+         * from the aircraft transmission system
+         */
         public void StartListening()
         {
             Int32 port = 15000;
@@ -44,12 +55,16 @@ namespace FDMS
             }
         }
 
+        /*
+         * Function: waitForClient()
+         * Description: Runs in the background as a thread, waits for a client to connect
+         */
         private void waitForClient(object o)
         {
-            TcpClient client = server.AcceptTcpClient();
-            isConnected = true;
             try
             {
+                TcpClient client = server.AcceptTcpClient();    // wait for client to connect
+                isConnected = true;
                 waitForMessage(client);
             }
             catch
@@ -59,7 +74,10 @@ namespace FDMS
             server.Stop();
         }
 
-
+        /*
+         * Function: waitForMessage()
+         * Description: After connecting to a client, this waits to recieve a message from the client
+         */
         private void waitForMessage(object o)
         {
             TcpClient client = (TcpClient)o;
@@ -74,12 +92,16 @@ namespace FDMS
 
             while (((i = stream.Read(bytes, 0, bytes.Length)) != 0) && isConnected) // iterate through read stream
             {
-                // convert data from byte to json
+                // call TelProcess.process
 
             }
             client.Close(); // shut down connection when user disconnects
         }
 
+        /*
+         * Function: stopListening()
+         * Description: Shuts down the connection and terminates the background listening thread
+         */
         public void stopListening()
         {
             isConnected = false;  // should cause the waitForMessage function to exit main loop, exit, then close the server
