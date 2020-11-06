@@ -105,8 +105,8 @@ namespace FDMS
         public void stopListening()
         {
             isConnected = false;  // should cause the waitForMessage function to exit main loop, exit, then close the server
-            listenerThread.Abort();
             server.Stop();
+            listenerThread.Abort();
         }
     }
 }
