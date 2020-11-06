@@ -18,5 +18,6 @@ namespace FDMS
 
         Task<List<Telemetry>> GetTelemetry();
         Task InsertTelemetry(Telemetry telemetry);
+        Task<List<Telemetry>> SearchTelemetry(string search);
     }
 }

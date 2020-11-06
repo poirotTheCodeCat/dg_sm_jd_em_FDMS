@@ -44,9 +44,15 @@
     bool isCollecting;
     private List<Telemetry> telemetry;
     Telemetry t;
+    bool first = false;
 
     protected override async Task OnInitializedAsync()
     {
+        if(first == false)
+        {
+            first = true;
+            FDMS.TelProcess.sendPackets(_db);
+        }
         // create test data to view the datagrid
         /*
          * There are constructors in each of the objects that will assign values based on parameters. 
@@ -71,7 +77,7 @@
         telemetry.Add(t);
         //telemetryData = telTest;
         telemetryData = telemetry;
-        
+
 
     }
 

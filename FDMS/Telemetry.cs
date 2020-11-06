@@ -37,7 +37,7 @@ namespace FDMS
         {
 
         }
-        public Telemetry(String tail, double x, double y, double z, double w, double a, double p, double b, DateTime ts )
+        public Telemetry(String tail, double x, double y, double z, double w, double a, double p, double b, DateTime ts)
         {
             TailNum = tail;
             Accel_x = x;
@@ -47,6 +47,18 @@ namespace FDMS
             Altitude = a;
             Pitch = p;
             TimeStamp = ts;
+        }
+
+        public Telemetry(Telemetry t)
+        {
+            TailNum = t.TailNum;
+            Accel_x = t.Accel_x;
+            Accel_y = t.Accel_y;
+            Accel_z = t.Accel_z;
+            Weight = t.Weight;
+            Altitude = t.Altitude;
+            Pitch = t.Pitch;
+            TimeStamp = t.TimeStamp;
         }
         public Telemetry(ISqlDataAccess db)
         {
@@ -104,8 +116,14 @@ namespace FDMS
 
         public Task<List<Telemetry>> GetTelemetry()
         {
-            string sql = "select * from TelemetryData"; //  change names so they are same in database and in project
+            string sql = "select * from TelemetryData"; 
             return _db.LoadData<Telemetry, dynamic>(sql, new { });
+        }
+
+        public Task<List<Telemetry>> SearchTelemetry(string search)
+        {
+            string sql = @"select * from TelemetryData where TailNum = @search"; 
+            return _db.LoadData<Telemetry, dynamic>(sql, new { search = search});
         }
 
         public Task InsertTelemetry(Telemetry telemetry)
