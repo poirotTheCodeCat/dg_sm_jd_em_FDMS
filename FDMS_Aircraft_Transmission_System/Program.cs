@@ -21,9 +21,9 @@ namespace FDMS_Aircraft_Transmission_System
                 client.Connect(serverName, port);
                 NetworkStream stream = client.GetStream();
 
-                numOfPackets = sendPackets("C:\\tmp\\C-FGAX.txt", client, stream, numOfPackets);
-                numOfPackets = sendPackets("C:\\tmp\\C-GEFC.txt", client, stream, numOfPackets);
-                numOfPackets = sendPackets("C:\\tmp\\C-QWWT.txt", client, stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-FGAX.txt", stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-GEFC.txt", stream, numOfPackets);
+                numOfPackets = sendPackets("C:\\tmp\\C-QWWT.txt", stream, numOfPackets);
 
                 client.Close();
                 stream.Close();
@@ -37,13 +37,14 @@ namespace FDMS_Aircraft_Transmission_System
 
 
         // Method:      sendPackets()
-        // Description: 
+        // Description: goes through each line in the file and sends the aircraft data to the connected ground terminal
         // Parameters:  string filename: the filename of the file that will have its contents read and sent to via packets
-        //              TcpClient client:
-        //              NetworkStream stream:
-        // Returns:     N/A
-        static int sendPackets(string filename, TcpClient client, NetworkStream stream, int packetNum)
+        //              NetworkStream stream: the stream to the server
+        // Returns:     int: the packet sequence number of the next packet to be sent
+        static int sendPackets(string filename, NetworkStream stream, int packetNum)
         {
+            byte[] bytes = new Byte[1024];
+            string recievedPacketString = "";
             // array of the aircraft data parsed into each attribute
             string[] aircraftData = null;
             // bool to keep track if the packet was successfully sent
@@ -80,9 +81,19 @@ namespace FDMS_Aircraft_Transmission_System
                         byte[] data = System.Text.Encoding.ASCII.GetBytes(JSONPacket);
                         stream.Write(data, 0, data.Length);
 
-                        // wait for response
+                        // waits for the response packet
+                        stream.Read(bytes, 0, bytes.Length);
 
-                        successfulPacket = true;
+                        // Translate data bytes to a ASCII string, and converts it back to a packet from the JSON string
+                        recievedPacketString = System.Text.Encoding.ASCII.GetString(bytes);
+                        Packet recievedPacket = JsonConvert.DeserializeObject<Packet>(recievedPacketString);
+
+                        // if the packet sequence and checksum is identical between the sent and recieved packets, successfulPacket is set to true
+                        // to move onto sending the next packet
+                        if (recievedPacket.PacketSequence == packet.PacketSequence && recievedPacket.CheckSum == packet.CheckSum)
+                        {
+                            successfulPacket = true;
+                        }
                     }
 
                     packetNum++;
